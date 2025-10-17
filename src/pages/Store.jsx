@@ -8,17 +8,22 @@ function Store() {
         useEffect(() => {
         fetchGames().then(setGames);
         }, []);
-    
-        return (
-        <div>
-            <h2>Tienda de Juegos</h2>
-            <div className="game-grid">
+
+    return (
+        <div className="container my-6">
+        <h2 className="text-center mb-4 text-light">
+            Catalogo de juegos
+        </h2>
+
+        <div className="row justify-content-center g-5">
             {games.map((game) => (
-                <GameCard key={game.id} game={game} />
-            ))}
+            <div key={game.id} className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                <GameCard game={game} />
             </div>
+            ))}
         </div>
-        );
+        </div>
+    );
 }
 
 export default Store;

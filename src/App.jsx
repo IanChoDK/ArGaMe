@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+
 import Home from "./pages/Home";
 import Library from "./pages/Library";
 import Login from "./pages/Login";
@@ -12,7 +15,7 @@ export default function App() {
     <AuthProvider>
       <Router>
         <NavBar />
-        <div className="container">
+        <div className="container my-4">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -21,6 +24,7 @@ export default function App() {
             <Route path="/store" element={<Store />} />
           </Routes>
         </div>
+        <Footer />
       </Router>
     </AuthProvider>
   );

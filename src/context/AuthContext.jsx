@@ -1,28 +1,28 @@
-import { createContext, useContext, useState } from "react";
-import { loginAPI } from "../api/api";
+import { createContext, useContext, useState } from "react"
+import { loginAPI } from "../api/api"
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
   async function login(email, password) {
-    setLoading(true);
-    setError("");
+    setLoading(true)
+    setError("")
     try {
       const userData = await loginAPI(email, password);
-      setUser(userData);
+      setUser(userData)
     } catch (err) {
-      setError(err);
+      setError(err)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   function logout() {
-    setUser(null);
+    setUser(null)
   }
 
   return (
@@ -33,5 +33,5 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  return useContext(AuthContext)
 }
