@@ -1,0 +1,164 @@
+body {
+padding-top: 70px;
+font-family: 'Nunito', sans-serif;
+background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/home-bg.jpg");
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: scroll;
+background-size: cover;
+color: #f8f9fa;
+min-height: 100vh;
+}
+
+.brand-text {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.navbar .nav-link {
+    color: #ccc !important;
+    transition: color 0.2s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+    color: #fff !important;
+}
+
+.navbar-brand .fa-gamepad {
+    font-size: 1.4rem;
+}
+
+.home {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 0rem;
+    padding: 0rem 0;
+
+    }
+
+.home h1, .home .h1 {
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    letter-spacing: 0.8rem;
+    background: linear-gradient(rgb(117, 170, 219), rgba(255, 255, 255, 0.9));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+            background-clip: text;
+    }
+    .home h2, .home .h2 {
+    max-width: 20rem;
+    font-size: 1rem;
+    }
+    @media (min-width: 768px) {
+    .home h1, .home .h1 {
+        font-size: 4rem;
+        line-height: 4rem;
+    }
+    }
+    @media (min-width: 992px) {
+    .home {
+        height: 100vh;
+        padding: 0;
+    }
+    .home h1, .home .h1 {
+        font-size: 6.5rem;
+        line-height: 6.5rem;
+        letter-spacing: 0.8rem;
+    }
+    .home h2, .home .h2 {
+        max-width: 30rem;
+        font-size: 1.25rem;
+    }
+    }
+
+.card {
+    position: relative;
+    width: 460px;
+    height: 215px;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 12px;
+    gap: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+}
+
+.card .img {
+    height: "215px";
+    object-fit: cover;
+}
+
+.card > div {
+    margin: auto auto;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    left: -5px;
+    margin: auto;
+    width: 105%;
+    height: 103%;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #ffffff 0%, #40c9ff 100%);
+    z-index: -10;
+    pointer-events: none;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(-45deg, #ffffff 0%, #40c9ff 100%);
+    transform: translate3d(0, 0, 0) scale(0.95);
+    filter: blur(20px);
+}
+
+.card p:not(.heading) {
+    font-size: 14px;
+}
+
+.card p:last-child {
+    color: #e81cff;
+    font-weight: 600;
+}
+
+.card:hover::after {
+    filter: blur(30px);
+}
+
+.card:hover::before {
+    transform: rotate(-180deg) scaleX(1) scaleY(1);
+}
+
+.card:hover .card-button {
+    transform: translate(-50%, 50%);
+    opacity: 1;
+}
+
+.card-button {
+    transform: translate(-50%, 125%);
+    width: 60%;
+    border-radius: 1rem;
+    border: none;
+    background: linear-gradient(-45deg, #ffffff 0%, #00dbde 100%);
+    color: #070700;
+    font-size: 1.4rem;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    opacity: 0;
+    transition: 0.3s ease-out;
+}
+
