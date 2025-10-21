@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 
 function Home() {
-    const { user } = useAuth();
+    const { user } = useAuth()
 
     return (
         <header class="home">
@@ -20,9 +20,9 @@ function Home() {
             </div>
         </header>
         
-    );
+    )
 }
 
 
-export default Home;
+export default Home
 
