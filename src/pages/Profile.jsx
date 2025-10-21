@@ -10,7 +10,8 @@ function Profile() {
         <div className="profile">
         <h2>Perfil del Usuario</h2>
         <p>Nombre: {user.name}</p>
-        <console className="log">{user.username}</console>
+        <p>Usuario: {user.username}</p>
+        <p>prueba: {user.created_at}</p>
         <p>Email: {user.email}</p>
         </div>
     )

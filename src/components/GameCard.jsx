@@ -26,9 +26,6 @@ function GameCard({ game }) {
                 <div className="card-footer small">
                     Lanzamiento: {new Date(game.release_date).toLocaleDateString("es-AR")}
                 </div>
-
-
-
                 
             </div>
             
