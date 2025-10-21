@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
       return { ok: true }
     } catch (err) {
       console.error("Login error:", err)
-      const msg = err.response?.data?.message || err.message || "Error en login"
+      const msg = err.response?.data?.message
       setError(msg)
       setLoading(false)
       return { ok: false, error: msg }
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
       return { ok: true }
     } catch (err) {
       console.error("Register error:", err)
-      const msg = err.response?.data?.message || err.message || "Error en registro"
+      const msg = err.response?.data?.message
       setError(msg)
       setLoading(false)
       return { ok: false, error: msg }

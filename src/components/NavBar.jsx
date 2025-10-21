@@ -34,7 +34,7 @@ function NavBar() {
                     {user && (
                     <li className="nav-item">
                         <Link className="nav-link" to="/library">
-                        <i className="fa-solid fa-book me-1"></i> Biblioteca
+                            <i className="fa-solid fa-book me-1"></i> Biblioteca
                         </Link>
                     </li>
                     )}
