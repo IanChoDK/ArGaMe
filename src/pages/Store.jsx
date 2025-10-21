@@ -1,13 +1,12 @@
-import { fetchGames } from "../api/api";
-import { useEffect, useState } from "react";
-import GameCard from "../components/GameCard";
+import { useEffect, useState } from "react"
+import { fetchGames } from "../api/api"
+import GameCard from "../components/GameCard"
 
 function Store() {
-    const [games, setGames] = useState([]);
-
-        useEffect(() => {
-        fetchGames().then(setGames);
-        }, []);
+    const [games, setGames] = useState([])
+    useEffect(() => {
+        fetchGames().then(setGames).catch(err => console.error(err))
+    }, []);
 
     return (
         <div className="container my-6">
@@ -23,7 +22,7 @@ function Store() {
             ))}
         </div>
         </div>
-    );
+    )
 }
 
-export default Store;
+export default Store

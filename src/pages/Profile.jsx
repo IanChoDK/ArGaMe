@@ -1,17 +1,19 @@
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext"
 
 function Profile() {
-    const { user } = useAuth();
+    const { user } = useAuth()
 
-    if (!user) return <p>No has iniciado sesión.</p>;
+    if (!user) return <p>No has iniciado sesión.</p>
 
     return (
+        // Faltar poner info
         <div className="profile">
         <h2>Perfil del Usuario</h2>
         <p>Nombre: {user.name}</p>
+        <console className="log">{user.username}</console>
         <p>Email: {user.email}</p>
         </div>
-    );
+    )
 }
 
-export default Profile;
+export default Profile

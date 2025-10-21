@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 function GameCard({ game }) {
     return (
@@ -34,9 +34,9 @@ function GameCard({ game }) {
             
                 <button class="card-button">Agregar</button>
         </div>
-    );
+    )
 }
 
-export default GameCard;
+export default GameCard
 
 
