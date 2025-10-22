@@ -1,35 +1,40 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
-import { loginAPI, registerAPI } from "../api/api"
+import { loginAPI, registerAPI, fetchUser } from "../api/api"
 
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
+  const [userProfile, setUserProfile] = useState(null)
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const navigate = useNavigate()
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token")
-    if (storedToken) {
-      try {
-        const decoded = jwtDecode(storedToken)
+    const authUser = async () => {
+      const storedToken = localStorage.getItem("token")
+      if (storedToken) {
+        try {
+          const decoded = jwtDecode(storedToken)
 
-        if (decoded.exp * 1000 > Date.now()) {
-          setUser(decoded)
-          setToken(storedToken)
-        } else {
+          if (decoded.exp * 1000 > Date.now()) {
+            setUser(decoded)
+            setToken(storedToken)
+            const profileData = await fetchUser(decoded.id);
+            setUserProfile(profileData);
+          } else {
+            localStorage.removeItem("token")
+          }
+        } catch (error) {
+          console.error("token invalido:", error)
           localStorage.removeItem("token")
         }
-      } catch (error) {
-        console.error("token invalido:", error)
-        localStorage.removeItem("token")
       }
-    }
-  }, [])
+  }; authUser();
+}, [token])
 
   const login = async (email, password) => {
     setLoading(true)
@@ -43,6 +48,8 @@ export const AuthProvider = ({ children }) => {
       const decoded = jwtDecode(token)
       setUser(decoded)
       setToken(token)
+      const profileData = await fetchUser(decoded.id);
+      setUserProfile(profileData);
 
       setLoading(false)
 
@@ -76,11 +83,12 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token")
     setUser(null)
     setToken(null)
+    setUserProfile(null)
     navigate("/")
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, error, login, register, logout }}>
+    <AuthContext.Provider value={{ user, userProfile, token, loading, error, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   )
