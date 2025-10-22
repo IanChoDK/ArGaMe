@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import { FaStore, FaBook, FaSignInAlt, FaUserPlus, FaPowerOff } from "react-icons/fa";
 
 function NavBar() {
     const { user, logout } = useAuth();
@@ -27,14 +28,14 @@ function NavBar() {
                 <ul className="navbar-nav me-auto">
                     <li className="nav-item">
                     <Link className="nav-link" to="/store">
-                        <i className="fa-solid fa-store me-1"></i> Tienda
+                        <FaStore className="me-1"></FaStore> Tienda
                     </Link>
                     </li>
 
                     {user && (
                     <li className="nav-item">
                         <Link className="nav-link" to="/library">
-                            <i className="fa-solid fa-book me-1"></i> Biblioteca
+                            <FaBook className="me-1"></FaBook> Biblioteca
                         </Link>
                     </li>
                     )}
@@ -45,12 +46,12 @@ function NavBar() {
                     <>
                     <li className="nav-item me-2">
                         <Link className="nav-link" to="/login">
-                            <i className="fa-solid fa-right-to-bracket me-1"></i> Iniciar sesión
+                            <FaSignInAlt className="me-1"></FaSignInAlt> Iniciar sesión
                         </Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/register">
-                            <i className="fa-solid fa-user-plus me-1"></i> Registrarse
+                            <FaUserPlus className="me-1"></FaUserPlus> Registrarse
                         </Link>
                     </li>
                     </>
@@ -75,7 +76,7 @@ function NavBar() {
                             className="btn btn-outline-light btn-sm ms-2"
                             onClick={logout}
                         >
-                            <i className="fa-solid fa-power-off me-1"></i> Cerrar sesion
+                            <FaPowerOff className="me-1"></FaPowerOff> Cerrar sesion
                         </button>
                         </li>
                     </>
