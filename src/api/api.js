@@ -49,4 +49,34 @@ export async function fetchUsers() {
   return res.data
 }
 
+//obtener informacion de usuario detallado
+export async function fetchUser(id){
+  const res = await api.get(`/users/${id}`)
+  return res.data
+}
+
+//obtener review especifica
+export async function fetchReview(id){
+  const res = await api.get(`/reviews/${id}`)
+  return res.data
+}
+
+//obtener reviews por juego
+export async function fetchReviewForGame(id){
+  const res = await api.get(`/games/${id}/reviews`)
+  return res.data
+}
+
+//obtener generos
+export async function fetchGenres(){
+  const res = await api.get('/genres')
+  return res.data
+}
+
+//obtener genero especifico
+export async function fetchGenre(id){
+  const res = await api.get(`/genres/${id}`)
+  return res.data
+}
+
 export default api
