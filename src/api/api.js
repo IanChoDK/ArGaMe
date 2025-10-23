@@ -31,9 +31,15 @@ export async function registerAPI({ name, email, password, username, role_id = 2
   return res.data
 }
 
-//juegos
+//traer juegos 
 export async function fetchGames() {
   const res = await api.get("/games")
+  return res.data
+}
+
+//crear juego (admin)
+export async function postGame(gameData){
+  const res = await api.post("/games", gameData)
   return res.data
 }
 
@@ -43,15 +49,33 @@ export async function fetchGame(id) {
   return res.data
 }
 
+//desactivar un juego (admin)
+export async function deleteGame(id){
+  const res = await api.delete(`/games/${id}`)
+  return res.data
+}
+
 //obtener usuarios
 export async function fetchUsers() {
   const res = await api.get("/users")
   return res.data
 }
 
-//obtener informacion de usuario detallado
+//obtener informacion de usuario detallado (admin,user)
 export async function fetchUser(id){
   const res = await api.get(`/users/${id}`)
+  return res.data
+}
+
+//modificar un usuario (admin)
+export async function updateUser(id, userData){
+  const res = await api.put(`/users/${id}`, userData)
+  return res.data
+}
+
+//borrar un usuario (admin)
+export async function deleteUser(id){
+  const res = await api.delete(`/users/${id}`)
   return res.data
 }
 
@@ -67,15 +91,40 @@ export async function fetchReviewForGame(id){
   return res.data
 }
 
+//crear review (user)
+export async function postReview(reviewData){
+  const res = await api.post('/reviews', reviewData)
+  return res.data
+}
+
+//desactivar review (admin, moderator, user)
+export async function deleteReview(id){
+  const res = await api.delete(`/reviews/${id}`)
+  return res.data
+}
+
+
 //obtener generos
 export async function fetchGenres(){
   const res = await api.get('/genres')
   return res.data
 }
 
-//obtener genero especifico
-export async function fetchGenre(id){
-  const res = await api.get(`/genres/${id}`)
+//modificar un genero (admin, moderator)
+export async function updateGenre(id, genreData) {
+  const res = await api.put(`/genres/${id}`, genreData);
+  return res.data
+}
+
+//agregar genero (admin, moderador)
+export async function postGenre(genreData){
+  const res = await api.post('/genres', genreData)
+  return res.data
+}
+
+//desactivar genero (admin)
+export async function deleteGenre(id){
+  const res = await api.delete(`/genres/${id}`)
   return res.data
 }
 
