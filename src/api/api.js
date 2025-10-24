@@ -79,6 +79,13 @@ export async function deleteUser(id){
   return res.data
 }
 
+//biblioteca de juegos de un usuario
+export async function fetchUserGames(id){
+  const res = await api.get(`/users/${id}/games`)
+  return res.data
+}
+
+
 //obtener review especifica
 export async function fetchReview(id){
   const res = await api.get(`/reviews/${id}`)
