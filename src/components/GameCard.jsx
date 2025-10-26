@@ -4,27 +4,27 @@ function GameCard({ game }) {
     return (
         <div class="card h-100 shadow-sm border-0">
             <img
-                src={game.game.thumbnail}
+                src={game.thumbnail}
                 className="card-img-top"
-                alt={game.game.name}
+                alt={game.name}
             />
             <div>
-                <h5 className="heading mb-2 text-truncate">{game.game.name}</h5>
+                <h5 className="heading mb-2 text-truncate">{game.name}</h5>
 
                 <p className="card-text small flex-grow-1">
-                {game.game.description}
+                {game.description}
                 </p>
                 
                 <div>
-                    {game.game.is_free ? (
+                    {game.is_free ? (
                     <span className="fw-bold text-primary">Gratis</span>
                     ) : (
-                    <span className="fw-bold text-primary">${game.game.price}</span>
+                    <span className="fw-bold text-primary">${game.price}</span>
                     )}
                 </div>
 
                 <div className="card-footer small">
-                    Lanzamiento: {new Date(game.game.release_date).toLocaleDateString("es-AR")}
+                    Lanzamiento: {new Date(game.release_date).toLocaleDateString("es-AR")}
                 </div>
                 
             </div>
