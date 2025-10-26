@@ -40,7 +40,7 @@ function Library() {
         <h2>Tu Biblioteca</h2>
             <div className="game-grid">
                 {games.map((game) => (
-                <GameCard key={game.game_id} game={game} />
+                <GameCard key={game.game_id} game={game.game} />
                 ))}
             </div>
         </div>
