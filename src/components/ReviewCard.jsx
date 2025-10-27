@@ -8,10 +8,10 @@ const ReviewCard = ({ review }) => {
     return (
         <div className="review-card">
             <div className="review-header">
-                    <span className="review-user">{review.user.username}</span>
-                    <span className="review-rating">(review.rating)</span>
-                    <span className="review-date">{reviewDate}</span>
-                    <text className="review-comment">{review.text_review}</text>
+                    <li><strong>Usuario: </strong>{review.user.username}</li>
+                    <li><strong>Valoracion: </strong> {review.rating}</li>
+                    <li><strong>Fecha: </strong> {reviewDate}</li>
+                    <text>{review.text_review}</text>
             </div>
         </div>
     );
