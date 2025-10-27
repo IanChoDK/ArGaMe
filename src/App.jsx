@@ -7,6 +7,7 @@ import Register from "./pages/Register"
 import Store from "./pages/Store"
 import Profile from "./pages/Profile"
 import Library from "./pages/Library"
+import GameDetail from "./pages/GameDetail"
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/games/:id" element={<GameDetail />} />
         </Routes>
       </div>
       <Footer />
