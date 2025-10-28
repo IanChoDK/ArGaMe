@@ -7,6 +7,7 @@ import Register from "./pages/Register"
 import Store from "./pages/Store"
 import Profile from "./pages/Profile"
 import Library from "./pages/Library"
+import CrudGames from "./pages/UploadGame"
 import GameDetail from "./pages/GameDetail"
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/UploadGame" element={<CrudGames />} />
           <Route path="/games/:id" element={<GameDetail />} />
         </Routes>
       </div>
