@@ -13,20 +13,22 @@ import GameDetail from "./pages/GameDetail"
 export default function App() {
   return (
     <>
-      <NavBar />
-      <div className="container my-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} /> 
-          <Route path="/store" element={<Store />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/UploadGame" element={<CrudGames />} />
-          <Route path="/games/:id" element={<GameDetail />} />
-        </Routes>
+      <div className="app-container">
+        <NavBar />
+          <div className="content-wrap">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} /> 
+              <Route path="/store" element={<Store />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/library" element={<Library />} />
+              <Route path="/UploadGame" element={<CrudGames />} />
+              <Route path="/games/:id" element={<GameDetail />} />
+            </Routes>
+          </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   )
 }
