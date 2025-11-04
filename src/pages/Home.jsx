@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import FeaturedGame from "../components/FeaturedGame"
 
 function Home() {
     const { user } = useAuth()
 
     return (
+        <>
         <header class="home">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
@@ -19,7 +21,11 @@ function Home() {
                 </div>
             </div>
         </header>
-        
+
+        <main>
+            < FeaturedGame />
+        </main>
+        </>
     )
 }
 
