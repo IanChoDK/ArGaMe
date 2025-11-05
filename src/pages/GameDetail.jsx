@@ -7,7 +7,7 @@ function GameDetail() {
     const { id } = useParams();
 
     return (
-        <div className="game-detail-page">
+        <div data-bs-theme="dark">
             <GameInfo id={id} />
             <GameReview id={id} />
         </div>

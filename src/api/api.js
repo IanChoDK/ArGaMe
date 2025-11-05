@@ -98,10 +98,10 @@ export async function fetchReviewForGame(id){
   return res.data
 }
 
-//crear review (user)
-export async function postReview(reviewData){
-  const res = await api.post('/reviews', reviewData)
-  return res.data
+// Crear review para un juego específico
+export async function postReview(id, reviewData) {
+  const res = await api.post(`/games/${id}/reviews`, reviewData);
+  return res.data;
 }
 
 //desactivar review (admin, moderator, user)

@@ -195,3 +195,25 @@ position: relative;
     object-fit: contain;
 }
 
+.shine-border {
+  /* Añadimos un pequeño borde para que la sombra no se "pierda" */
+  border: 1px solid rgba(13, 110, 253, 0.5); /* Color azul primario de Bootstrap con algo de transparencia */
+  
+  /* La magia está en el box-shadow */
+  box-shadow: 
+    0 0 10px rgba(13, 110, 253, 0.7),   /* Sombra azul más ligera */
+    0 0 20px rgba(13, 110, 253, 0.5),   /* Sombra azul un poco más fuerte */
+    0 0 30px rgba(13, 110, 253, 0.3);   /* Sombra azul aún más difusa */
+
+  /* Agregamos una transición para que el efecto sea suave si lo combinamos con hover */
+  transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+/* Opcional: Para un efecto de brillo al pasar el ratón */
+.shine-border:hover {
+  border-color: rgba(13, 110, 253, 0.8);
+  box-shadow: 
+    0 0 15px rgba(13, 110, 253, 0.9),
+    0 0 25px rgba(13, 110, 253, 0.7),
+    0 0 40px rgba(13, 110, 253, 0.5);
+}
