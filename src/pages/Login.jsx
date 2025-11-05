@@ -14,40 +14,63 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const res = await login(email, password)
-        if (res.ok) {
-        // login sin errores
-        } else {
-        // aca mostrar alerta
-        }
+        await login(email, password)
     }
 
     return (
-        <div className="login text-center">
-            <h2>Iniciar sesión</h2>
-                <form onSubmit={handleSubmit} className="col-md-6 mx-auto">
-                    <div className="mb-3">
-                        <label className="form-label">Email</label>
-                        <input type="email" className="form-control" required value={email} onChange={e => setEmail(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Contraseña</label>
-                        <input type="password" className="form-control" required value={password} onChange={e => setPassword(e.target.value)} />
-                    </div>
+        <div className="d-flex justify-content-center align-items-center min-vh-100 text-light">
+        <div>
+            <h2 className="text-center mb-4 fw-bold text-primary">
+            Iniciar sesión
+            </h2>
 
-                    <button className="btn btn-primary w-100" type="submit" disabled={loading}>
-                        {loading ? "Ingresando..." : "Entrar"}
-                    </button>
+            <form onSubmit={handleSubmit}>
+            <div className="mb-3 text-start">
+                <label className="form-label">Email</label>
+                <input
+                type="email"
+                className="form-control bg-dark text-light border-secondary"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                />
+            </div>
 
-                    <p className="mt-3 text-center">
-                        ¿No tenés cuenta? <Link to="/register">Registrate aca</Link>
-                    </p>
+            <div className="mb-3 text-start">
+                <label className="form-label">Contraseña</label>
+                <input
+                type="password"
+                className="form-control bg-dark text-light border-secondary"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
 
-                    {error && <div className="alert alert-danger mt-3">{error}</div>}
-                </form>
+            <button
+                className="btn btn-primary w-100 fw-bold"
+                type="submit"
+                disabled={loading}
+            >
+                {loading ? "Ingresando..." : "Entrar"}
+            </button>
+
+            {error && (
+                <div className="alert alert-danger mt-3 text-center">
+                {error}
+                </div>
+            )}
+
+            <p className="mt-4 text-center">
+                ¿No tenés cuenta?{" "}
+                <Link to="/register" className="text-primary fw-semibold">
+                Registrate acá
+                </Link>
+            </p>
+            </form>
+        </div>
         </div>
     )
 }
 
 export default Login
-

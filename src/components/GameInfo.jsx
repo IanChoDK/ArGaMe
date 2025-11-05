@@ -163,7 +163,7 @@ function GameInfo({id}) {
                             <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1622900/header.jpg?t=1697483511" className="card-img-top" alt="Juego 3"/>
                             <div className="card-body text-center">
                                 <h6 className="card-title">Mismo Genero</h6>
-                                <p className="badge bg-info text-wrap w-100 p-2 fs-6 mb-0">$20</p>
+                                <p className="badge bg-info text-wrap w-100 p-2 fs-6 mb-0">$20 (proximamente) </p>
                             </div>
                         </div>
                     </div>
