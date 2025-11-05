@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import { FaStore, FaBook, FaSignInAlt, FaUserPlus, FaPowerOff } from "react-icons/fa";
+import logo from "../assets/img/ArGaMe app.png"
 
 function NavBar() {
     const { user, logout } = useAuth();
@@ -9,6 +10,7 @@ function NavBar() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
             <div className="container">
                 <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
+                <img src={logo} alt="ArGaMe Logo" style={{ width: "35px", height: "35px", marginRight: "10px" }}/>
                 <span className="brand-text">ArGaMe</span>
                 </Link>
 
