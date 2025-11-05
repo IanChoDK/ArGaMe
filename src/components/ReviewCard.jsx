@@ -1,5 +1,5 @@
 import react from 'react';
-
+import { Link } from 'react-router-dom';
 
 const ReviewCard = ({ review }) => {
 
@@ -8,7 +8,11 @@ const ReviewCard = ({ review }) => {
     return (
         <div className="review-card">
             <div className="review-header">
-                    <li><strong>Usuario: </strong>{review.user.username}</li>
+                    <li><strong>Usuario: </strong>
+                    <Link to={`/users/${review.user.id}`}>
+                    {review.user.username}
+                    </Link>
+                    </li>
                     <li><strong>Valoracion: </strong> {review.rating}</li>
                     <li><strong>Fecha: </strong> {reviewDate}</li>
                     <text>{review.text_review}</text>

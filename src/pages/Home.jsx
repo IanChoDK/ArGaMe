@@ -2,6 +2,8 @@ import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import FeaturedGame from "../components/FeaturedGame"
 import FormsSection from "../components/FormSection"
+import NewsletterSection from "../components/NewlesterSection"
+import Banner from "../assets/img/ArGaMe.banner.png"
 
 function Home() {
     const { user } = useAuth()
@@ -26,6 +28,10 @@ function Home() {
         <main>
             < FeaturedGame />
             < FormsSection />
+            < NewsletterSection />
+            <section className="banner-section">
+                <img src={Banner} alt="Banner ArGaMe" className="banner-image" />
+            </section>
         </main>
         </>
     )

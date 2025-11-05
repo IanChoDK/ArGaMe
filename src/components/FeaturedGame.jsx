@@ -45,38 +45,38 @@ function FeaturedGame() {
 
     return (
         <section className="bg-dark text-light py-5 mt-4">
-        <div className="container">
+            <div className="container">
 
-            <h2 className="fw-bold text-center mb-5 text-uppercase text-primary">
-            Juego destacado
-            </h2>
+                <h2 className="fw-bold text-center mb-5 text-uppercase text-primary">
+                Juego destacado
+                </h2>
 
-            <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
+                <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
 
-            <div className="flex-shrink-0">
-                <img
-                src={featuredGame.thumbnail}
-                alt={featuredGame.name}
-                className="img-fluid rounded shadow"
-                />
+                <div className="flex-shrink-0">
+                    <img
+                    src={featuredGame.thumbnail}
+                    alt={featuredGame.name}
+                    className="img-fluid rounded shadow"
+                    />
+                </div>
+
+                <div className="text-center text-md-start">
+                    <h3 className="fw-bold mb-3">{featuredGame.name}</h3>
+                    <p className="text-secondary mb-4">
+                    {featuredGame.description
+                        ? featuredGame.description.substring(0, 160) + "..."
+                        : "Descubre este increíble juego destacado del día."}
+                    </p>
+                    <button
+                    className="btn btn-primary btn-lg"
+                    onClick={() => navigate(`/games/${featuredGame.id}`)}
+                    >
+                    Ver detalles
+                    </button>
+                </div>
+                </div>
             </div>
-
-            <div className="text-center text-md-start">
-                <h3 className="fw-bold mb-3">{featuredGame.name}</h3>
-                <p className="text-secondary mb-4">
-                {featuredGame.description
-                    ? featuredGame.description.substring(0, 160) + "..."
-                    : "Descubre este increíble juego destacado del día."}
-                </p>
-                <button
-                className="btn btn-primary btn-lg"
-                onClick={() => navigate(`/games/${featuredGame.id}`)}
-                >
-                Ver detalles
-                </button>
-            </div>
-            </div>
-        </div>
         </section>
     )
 }
