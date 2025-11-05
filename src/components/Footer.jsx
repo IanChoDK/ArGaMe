@@ -1,3 +1,5 @@
+import { FaFacebook, FaInstagram, FaYoutube, FaEnvelope } from "react-icons/fa"
+
 function Footer() {
     return (
     <footer className="bg-dark text-light text-center py-4 mt-auto">
@@ -19,7 +21,7 @@ function Footer() {
             href="mailto:argamemarket@gmail.com"
             className="text-light text-decoration-none"
             >
-            Email: argamemarket@gmail.com
+            <FaEnvelope className="text-primary" /> argamemarket@gmail.com
             </a>
 
             <span>|</span>
@@ -30,7 +32,18 @@ function Footer() {
             rel="noopener noreferrer"
             className="text-light text-decoration-none"
             >
-            Facebook: Argame 
+            <FaFacebook className="text-primary" /> Argame 
+            </a>
+
+            <span>|</span>
+
+            <a
+            href="https://www.youtube.com/@ArGaMeOficial"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-light text-decoration-none"
+            >
+            <FaYoutube className="text-primary" /> @ArGaMeOficial
             </a>
 
             <span>|</span>
@@ -41,18 +54,7 @@ function Footer() {
             rel="noopener noreferrer"
             className="text-light text-decoration-none"
             >
-            Youtube: @ArGaMeOficial
-            </a>
-
-            <span>|</span>
-
-            <a
-            href="https://www.instagram.com/argameoficial/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-light text-decoration-none"
-            >
-            Instagram: @argameoficial
+            <FaInstagram className="text-primary" /> @argameoficial
             </a>
         </div>
         </div>
