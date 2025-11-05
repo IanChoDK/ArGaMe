@@ -28,10 +28,10 @@ function Home() {
         <main>
             < FeaturedGame />
             < FormsSection />
+            < NewsletterSection />
             <section className="banner-section">
                 <img src={Banner} alt="Banner ArGaMe" className="banner-image" />
             </section>
-            < NewsletterSection />
         </main>
         </>
     )
