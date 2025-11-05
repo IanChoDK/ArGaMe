@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import FeaturedGame from "../components/FeaturedGame"
+import FormsSection from "../components/FormSection"
 
 function Home() {
     const { user } = useAuth()
@@ -24,6 +25,7 @@ function Home() {
 
         <main>
             < FeaturedGame />
+            < FormsSection />
         </main>
         </>
     )
