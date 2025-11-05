@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
 function GameCard({ game }) {
     return (
@@ -14,6 +14,7 @@ function GameCard({ game }) {
                 width: "100%",
                 height: "150px",
                 objectFit: "cover",
+                borderRadius: "10px",
             }}
             />
             <h5 className="fw-bold text-light mt-2">{game.name}</h5>
@@ -48,7 +49,7 @@ function GameCard({ game }) {
             </Link>
         </div>
         </div>
-    );
+    )
 }
 
-export default GameCard;
+export default GameCard
