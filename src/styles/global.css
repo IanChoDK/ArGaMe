@@ -177,3 +177,21 @@ footer {
     transition: 0.3s ease-out;
 }
 
+.banner-section {
+width: 100%;
+background-color: #000;
+display: flex;
+justify-content: center;
+align-items: center;
+overflow: hidden;
+padding: 1rem 0;
+position: relative;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+}
+
