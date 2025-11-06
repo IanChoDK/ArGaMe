@@ -140,15 +140,15 @@ function Profile() {
               <ul className="list-group list-group-flush">
                 <li className="list-group-item d-flex align-items-center">
                   <span className="badge bg-success me-3 p-2 rounded-circle">★</span>
-                  Añadió <strong>Forager</strong> a su lista de deseados.
+                  Añadió Forager a su lista de deseados.
                 </li>
                 <li className="list-group-item d-flex align-items-center">
                   <span className="badge bg-info me-3 p-2 rounded-circle">✎</span>
-                  Escribió una reseña para <strong>MADiSON</strong>.
+                  Escribió una reseña para MADiSON.
                 </li>
                 <li className="list-group-item d-flex align-items-center">
                   <span className="badge bg-secondary me-3 p-2 rounded-circle">✓</span>
-                  Completó el logro "Maestro" en <strong>Quantum League</strong>.
+                  Completó el logro "Maestro" en Quantum League.
                 </li>
               </ul>
             </div>
