@@ -73,12 +73,18 @@ function GameInfo({id}) {
                         <p className="lead my-3">{gameDetails.description}</p>
 
                         <ul className="list-group list-group-flush rounded mt-4">
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
-                                <strong>Precio:</strong>
-                                <span className="badge bg-info rounded-pill fs-6">
-                                    {gameDetails.is_free ? 'Gratis' : `$${gameDetails.price}`}
-                                </span>
+                            <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div className="d-flex align-items-center gap-2">
+                                    <strong>Precio:</strong>
+                                    <span className="badge bg-info rounded-pill fs-6">
+                                        {gameDetails.is_free ? 'Gratis' : `$${gameDetails.price}`}
+                                    </span>
+                                </div>
+                                <button className="btn btn-sm btn-primary">
+                                    Agregar a la biblioteca
+                                </button>
                             </li>
+
                             <li className="list-group-item d-flex justify-content-between align-items-center">
                                 <strong>Fecha de Lanzamiento:</strong>
                                 <span>{new Date(gameDetails.release_date).toLocaleDateString()}</span>
@@ -136,34 +142,34 @@ function GameInfo({id}) {
                 <div className="row">
                     
                     {/* Juego Recomendado 1 */}
-                    <div className="col-12 col-md-6 col-lg-4 mb-3">
-                        <div className="card h-100">
+                    <div className="rounded col-12 col-md-6 bg-dark col-lg-4 mb-3">
+                        <div className="card-1 h-100">
                             <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/222520/header.jpg?t=1612867232" className="card-img-top" alt="Juego 1"/>
                             <div className="card-body text-center">
                                 <h6 className="card-title">Otro Juego del Dev</h6>
-                                <p className="badge bg-info text-wrap w-100 p-2 fs-6 mb-0">Gratis</p>
+                                <p className="btn btn-primary">Gratis</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Juego Recomendado 2 */}
-                    <div className="col-12 col-md-6 col-lg-4 mb-3">
-                        <div className="card h-100">
+                    <div className="rounded col-12 col-md-6 col-lg-4 mb-3">
+                        <div className="card-1 h-100">
                             <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/882150/header.jpg?t=1631197856" className="card-img-top" alt="Juego 2"/>
                             <div className="card-body text-center p-2">
                                 <h6 className="card-title">Proximo Lanzamiento</h6>
-                                <p className="badge bg-info text-wrap w-100 p4 fs-6 mb-0">Acceso anticipado</p>
+                                <p className="btn btn-primary">Acceso anticipado</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Juego Recomendado 3 */}
-                    <div className="col-12 col-md-6 col-lg-4 mb-3">
-                        <div className="card h-100">
+                    <div className="rounded col-12 col-md-6 bg-dark col-lg-4 mb-3">
+                        <div className="card-1 h-100">
                             <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1622900/header.jpg?t=1697483511" className="card-img-top" alt="Juego 3"/>
                             <div className="card-body text-center">
                                 <h6 className="card-title">Mismo Genero</h6>
-                                <p className="badge bg-info text-wrap w-100 p-2 fs-6 mb-0">$20</p>
+                                <p className="btn btn-primary">$20 (proximamente) </p>
                             </div>
                         </div>
                     </div>

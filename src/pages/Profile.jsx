@@ -1,36 +1,52 @@
-// src/pages/Profile.jsx
-import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import UserInfo from "../components/UserInfo";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react"
+import { useAuth } from "../context/AuthContext"
+import UserInfo from "../components/UserInfo"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function Profile() {
-  const { userProfile } = useAuth() || {};
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchedUser, setSearchedUser] = useState(null);
+  const { userProfile, loading } = useAuth() || {}
+  const [searchQuery, setSearchQuery] = useState("")
+  const [searchedUser, setSearchedUser] = useState(null)
+
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div
+          className="spinner-border text-primary"
+          role="status"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    )
+  }
 
   if (!userProfile) {
     return (
-      <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="alert alert-warning text-center shadow-sm">
-          No has iniciado sesión.
+      <div className="d-flex justify-content-center align-items-center vh-100 text-light">
+        <div className="text-center">
+          <h2 className="text-warning fw-bold">No has iniciado sesión</h2>
+          <p className="text-secondary">
+            Iniciá sesión para acceder a tu perfil.
+          </p>
         </div>
       </div>
-    );
+    )
   }
 
   const handleSearch = (e) => {
-    e.preventDefault();
-    // Tu lógica de búsqueda...
+    e.preventDefault()    // Tu lógica de búsqueda...
     if (
       userProfile.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       userProfile.email?.toLowerCase().includes(searchQuery.toLowerCase())
     ) {
-      setSearchedUser(userProfile);
+      setSearchedUser(userProfile)
     } else {
-      setSearchedUser(null);
+      setSearchedUser(null)
     }
-  };
+  }
 
   return (
     // Contenedor principal
