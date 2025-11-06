@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 function GameCard({ game }) {
     return (
-        <div className="card text-center">
+        <div className="card1 text-center">
 
         <div className="first-content flex-column">
             <img
