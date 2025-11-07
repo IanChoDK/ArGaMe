@@ -139,7 +139,7 @@ function GameInfo({id}) {
             <div className="mt-4 rounded shadow-sm p-4">
                 <h3 className="mb-3">Más de {gameDetails.developer.name}</h3>
                 
-                <div className="row">
+                <div className="row" id="juegosRecomendados">
                     
                     {/* Juego Recomendado 1 */}
                     <div className="rounded col-12 col-md-6 bg-dark col-lg-4 mb-3">
