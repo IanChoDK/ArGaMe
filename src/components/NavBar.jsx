@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
-import { FaStore, FaBook, FaSignInAlt, FaUserPlus, FaPowerOff } from "react-icons/fa";
+import { FaStore, FaBook, FaSignInAlt, FaUserPlus, FaPenFancy, FaPowerOff } from "react-icons/fa";
 import logo from "../assets/img/ArGaMe app.png"
 
 function NavBar() {
@@ -40,6 +40,16 @@ function NavBar() {
                             <FaBook className="me-1"></FaBook> Biblioteca
                         </Link>
                     </li>
+                    )}
+                    {/*SOLO ADMIN puede crear posts */}
+                    {user?.role === "admin" && (
+                        <>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/uploadgame">
+                                    <FaPenFancy className="me-1" /> Agregar Juego
+                                </Link>
+                            </li>
+                        </>
                     )}
                 </ul>
 

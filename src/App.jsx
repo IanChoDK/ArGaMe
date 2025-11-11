@@ -25,7 +25,12 @@ export default function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/users/:id" element={<UserProfile />} />
               <Route path="/library" element={<Library />} />
-              <Route path="/UploadGame" element={<CrudGames />} />
+              <Route 
+                path="/uploadgame"
+                element={
+                    <CrudGames />
+                }
+              />
               <Route path="/games/:id" element={<GameDetail />} />
             </Routes>
           </div>
