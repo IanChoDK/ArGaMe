@@ -1,10 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
 function GameCard({ game }) {
     return (
-        <div className="card text-center">
-
+        <div className="card1 text-center">
         <div className="first-content flex-column">
             <img
             src={game.thumbnail}
@@ -12,8 +11,9 @@ function GameCard({ game }) {
             className="img-fluid rounded mb-2"
             style={{
                 width: "100%",
-                height: "150px",
+                height: "200px",
                 objectFit: "cover",
+                borderRadius: "10px",
             }}
             />
             <h5 className="fw-bold text-light mt-2">{game.name}</h5>
@@ -48,7 +48,7 @@ function GameCard({ game }) {
             </Link>
         </div>
         </div>
-    );
+    )
 }
 
-export default GameCard;
+export default GameCard

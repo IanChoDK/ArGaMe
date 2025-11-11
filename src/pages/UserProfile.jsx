@@ -32,7 +32,6 @@ function UserProfile() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim() !== "") {
-      // redirige a otro perfil según el ID o nombre
       navigate(`/users/${searchQuery}`);
     }
   };
@@ -56,9 +55,7 @@ function UserProfile() {
   return (
     <div
       className="d-flex flex-column justify-content-center align-items-center min-vh-100"
-      style={{
-        padding: "20px",
-      }}
+      style={{ padding: "20px" }}
     >
       {/* Buscador de usuarios */}
       <div
@@ -90,6 +87,22 @@ function UserProfile() {
         <h2 className="text-primary fw-bold mb-4">
           Perfil del Usuario {userData?.name}
         </h2>
+
+        <div
+          className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-4 shadow-sm"
+          style={{
+            width: "100px",
+            height: "100px",
+            fontSize: "40px",
+            fontWeight: "bold",
+          }}
+        >
+          {userData?.username
+            ? userData.username.charAt(0).toUpperCase()
+            : userData?.name
+            ? userData.name.charAt(0).toUpperCase()
+            : "?"}
+        </div>
 
         <UserInfo user={userData} />
 

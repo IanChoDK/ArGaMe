@@ -67,24 +67,26 @@ function Store() {
 
             <div className="mt-5 text-center">
                 <h3 className="text-light mb-4">🎲 Juego Random 🎲</h3>
-                <div className="d-flex justify-content-center">
-                    {randomGame ? (
-                        <Link to={`/games/${randomGame.id}`} className="text-decoration-none">
-                            <GameCard
-                                game={{
-                                    id: randomGame.id,
-                                    name: "???",
-                                    description: "Descubrí un juego misterioso",
-                                    thumbnail: "https://via.placeholder.com/190x254?text=%3F%3F%3F",
-                                    is_free: true,
-                                    price: "?",
-                                    release_date: new Date(),
-                                }}
-                            />
-                        </Link>
-                    ) : (
-                        <p className="text-light">Cargando juego random...</p>
-                    )}
+                <div className="row justify-content-center">
+                    <div className="col-auto">
+                        {randomGame ? (
+                            <Link to={`/games/${randomGame.id}`} className="text-decoration-none">
+                                <GameCard
+                                    game={{
+                                        id: randomGame.id,
+                                        name: "???",
+                                        description: "Descubrí un juego misterioso",
+                                        thumbnail: "https://via.placeholder.com/190x254?text=%3F%3F%3F",
+                                        is_free: true,
+                                        price: "?",
+                                        release_date: new Date(),
+                                    }}
+                                />
+                            </Link>
+                        ) : (
+                            <p className="text-light">Cargando juego random...</p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
