@@ -12,7 +12,8 @@ function GameReview({ id }) {
         setLoading(true);
         try {
             const gameReviews = await fetchReviewForGame(id);
-            setReviews(gameReviews);
+            const visibleReviews = gameReviews.filter((review) => review.is_visible)
+            setReviews(visibleReviews);
             setError(null);
         } catch (err) {
             setError(err.message);
@@ -42,7 +43,7 @@ if (loading) {
 
     return (
         <div className="container my-5">
-            <AddReviewForm gameId={id} onReviewAdded={loadReviews} />
+            <AddReviewForm id={id} onReviewAdded={loadReviews} />
 
             <h3 className="mt-4 mb-3">Reseñas de Usuarios</h3>
             {reviews.length === 0 ? (
@@ -51,7 +52,11 @@ if (loading) {
                 // Usamos list-group para apilar las ReviewCards
                 <div className="list-group">
                     {reviews.map((review) => (
-                        <ReviewCard key={review.id} review={review} />
+                        <ReviewCard
+                            key={review.id}
+                            review={review}
+                            onReviewDeleted={loadReviews}
+                        />
                     ))}
                 </div>
             )}
