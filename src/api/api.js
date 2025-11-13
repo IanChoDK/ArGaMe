@@ -135,4 +135,10 @@ export async function deleteGenre(id){
   return res.data
 }
 
+//roles de usuarios
+export async function fetchRoles(){
+  const res = await api.get('/roles')
+  return res.data
+}
+
 export default api
