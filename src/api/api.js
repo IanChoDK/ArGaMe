@@ -4,7 +4,7 @@ const SERVER_URL = "http://localhost:5000/"
 const API_BASE = SERVER_URL
 
 const api = axios.create({
-  baseURL: API_BASE,
+  baseURL: "http://localhost:5000", // o tu URL base
   headers: {
     "Content-Type": "application/json",
   },
@@ -46,6 +46,12 @@ export async function postGame(gameData){
 //detalle de juegos
 export async function fetchGame(id) {
   const res = await api.get(`/games/${id}`)
+  return res.data
+}
+
+//editar un juego (admin)
+export async function updateGame(id, gameData){
+  const res = await api.patch(`/games/${id}`, gameData)
   return res.data
 }
 
@@ -114,7 +120,7 @@ export async function deleteReview(id){
 //obtener generos
 export async function fetchGenres(){
   const res = await api.get('/genres')
-  return res.data
+  return res.data.filter((g) => g.is_active)
 }
 
 //modificar un genero (admin, moderator)
