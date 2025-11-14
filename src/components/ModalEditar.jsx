@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { toast } from "react-toastify"
+import { Modal } from 'bootstrap'
 
-export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdated }) {
+export default function ModalEditar({ show, onHide, genres, currentGame, onGameUpdated }) {
   // Estado interno del formulario
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -15,7 +16,48 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
   const [selectedGenres, setSelectedGenres] = useState([])
   const [editId, setEditId] = useState(null)
 
-  // useEffect para setear los estados cuando 'currentGame' cambia
+  // Refs para el modal
+  const modalRef = useRef(null)
+  const modalInstance = useRef(null)
+
+  // Efecto para inicializar el modal de Bootstrap
+  useEffect(() => {
+    if (modalRef.current) {
+      modalInstance.current = new Modal(modalRef.current, {
+        keyboard: false,
+        backdrop: 'static'
+      })
+    }
+  }, [])
+
+  // Efecto para mostrar/ocultar el modal cuando la prop 'show' cambia
+  useEffect(() => {
+    if (modalInstance.current) {
+      if (show) {
+        modalInstance.current.show()
+      } else {
+        modalInstance.current.hide()
+      }
+    }
+  }, [show])
+
+  // Efecto para escuchar el evento de cierre de Bootstrap
+  useEffect(() => {
+    const modalElement = modalRef.current
+    if (!modalElement) return
+
+    const handleHide = () => {
+      onHide()
+    }
+
+    modalElement.addEventListener('hidden.bs.modal', handleHide)
+
+    return () => {
+      modalElement.removeEventListener('hidden.bs.modal', handleHide)
+    }
+  }, [onHide])
+  
+  // Efecto para sincronizar el estado interno cuando 'currentGame' cambia
   useEffect(() => {
     if (currentGame) {
       setTitle(currentGame.name || "")
@@ -55,7 +97,6 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
       genres: selectedGenres,
     }
 
-    // Llama al handler del padre
     if (editId) {
       onGameUpdated(editId, juegoActualizado)
     }
@@ -84,9 +125,11 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
             ></button>
           </div>
 
+          {/* Formulario de edicion de juego */}
           <form onSubmit={handleSubmit}>
             <div className="modal-body">
-              {/* Título */}
+
+              {/* Título del juego */}
               <div className="mb-3">
                 <label htmlFor="title-editar" className="col-form-label">
                   Título:
@@ -100,7 +143,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                 />
               </div>
 
-              {/* Descripción */}
+              {/* Descripción del juego */}
               <div className="mb-3">
                 <label htmlFor="description-editar" className="col-form-label">
                   Descripción:
@@ -113,7 +156,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                 ></textarea>
               </div>
 
-              {/* Precio */}
+              {/* Precio del juego */}
               <div className="mb-3">
                 <label htmlFor="price-editar" className="col-form-label">
                   Precio:
@@ -128,7 +171,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                 />
               </div>
 
-              {/* Fecha de lanzamiento */}
+              {/* Fecha de lanzamiento del juego */}
               <div className="mb-3">
                 <label htmlFor="releaseDate-editar" className="col-form-label">
                   Fecha de lanzamiento:
@@ -142,7 +185,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                 />
               </div>
 
-              {/* Thumbnail */}
+              {/* Imagen del juego */}
               <div className="mb-3">
                 <label htmlFor="thumbnail-editar" className="col-form-label">
                   URL de imagen (thumbnail):
@@ -156,7 +199,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                 />
               </div>
 
-              {/* Es gratuito */}
+              {/* Es gratis */}
               <div className="form-check mb-3">
                 <input
                   id="isFree-editar"
@@ -170,7 +213,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                 </label>
               </div>
 
-              {/* Géneros */}
+              {/* Selección de géneros */}
               <div className="mb-3">
                 <label htmlFor="genres-editar" className="col-form-label">
                   Géneros:
@@ -183,24 +226,21 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                   value={selectedGenres}
                   onChange={(e) =>
                     setSelectedGenres(
-                      Array.from(e.target.selectedOptions, (option) =>
-                        Number(option.value)
-                      )
+                      Array.from(e.target.selectedOptions, (option) => Number(option.value))
                     )
                   }
                 >
+                  {/* Opciones de géneros */}
                   {(genres || []).map((g) => (
                     <option key={g.id} value={g.id}>
                       {g.name}
                     </option>
                   ))}
                 </select>
-                <small className="text-muted">
-                  Mantén Ctrl (o Cmd) para seleccionar varios.
-                </small>
+                <small className="text-muted">Mantén Ctrl (o Cmd) para seleccionar varios.</small>
               </div>
 
-              {/* Developer ID */}
+              {/* Id de desarrollador */}
               <div className="mb-3">
                 <label htmlFor="developerId-editar" className="col-form-label">
                   ID del Desarrollador:
@@ -214,7 +254,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                 />
               </div>
 
-              {/* Editor ID */}
+              {/* Id de editor */}
               <div className="mb-3">
                 <label htmlFor="editorId-editar" className="col-form-label">
                   ID del Editor:
@@ -228,7 +268,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                 />
               </div>
 
-              {/* Publicado */}
+              {/* Esta publicado */}
               <div className="form-check mb-3">
                 <input
                   id="isPublished-editar"
@@ -237,10 +277,7 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
                   checked={isPublished}
                   onChange={(e) => setIsPublished(e.target.checked)}
                 />
-                <label
-                  htmlFor="isPublished-editar"
-                  className="form-check-label"
-                >
+                <label htmlFor="isPublished-editar" className="form-check-label">
                   ¿Publicar juego?
                 </label>
               </div>
@@ -250,11 +287,14 @@ export default function ModalEditar({ modalRef, genres, currentGame, onGameUpdat
               <button
                 type="button"
                 className="btn btn-secondary"
-                data-bs-dismiss="modal"
+                data-bs-dismiss="modal" 
               >
                 Cerrar
               </button>
-              <button type="submit" className="btn btn-warning">
+              <button
+                type="submit"
+                className="btn btn-warning"
+              >
                 Actualizar
               </button>
             </div>
