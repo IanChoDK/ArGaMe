@@ -1,254 +1,230 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
-import { ToastContainer, toast } from "react-toastify"  //Renderiza el contenedor donde aparecerán los toasts.
+import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import api, { fetchGames } from "../api/api"
+import { fetchGames, fetchGenres, postGame, deleteGame, updateGame } from "../api/api"
+
+import ModalCrear from "../components/ModalCrear"
+import ModalEditar from "../components/ModalEditar"
+
+
 
 export default function CrudGames() {
+  // Estados principales
   const [games, setGames] = useState([])
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
-  const [genre, setGenre] = useState("")
-  const [price, setPrice] = useState("")
-  const [editMode, setEditMode] = useState(false)  //Editando(true)/Creando(false)
-  const [editId, setEditId] = useState(null)  //id del juego a editar, valor nulo en caso de no editar
+  const [genres, setGenres] = useState([])
+  const [gameToEdit, setGameToEdit] = useState(null)
+  const [Loading, setLoading] = useState(false)
 
-  //Llama a cargarJuegos() para traer la lista desde la API al iniciar.
+  const [showCrearModal, setShowCrearModal] = useState(false)
+  const [showEditarModal, setShowEditarModal] = useState(false)
+  
+  const [needsRefresh, setNeedsRefresh] = useState(false)
+
+  // useEffect para cargar datos
   useEffect(() => {
     cargarJuegos()
+    cargarGeneros()
   }, [])
 
-  const cargarJuegos = async () => {
+  // Cargar datos luego de crear o editar un juego
+  useEffect(() => {
+    
+    if (needsRefresh && !showCrearModal && !showEditarModal) {
+      
+      // Si se cumplen las condiciones, recargamos
+      cargarJuegos()
+      
+      setNeedsRefresh(false)
+    }
+    
+  }, [needsRefresh, showCrearModal, showEditarModal])
+
+  // Funciones para cargar datos
+  const cargarJuegos = async () => { 
+    setLoading(true)
     try {
-      const data = await fetchGames()
-      setGames(data)
+      setGames([])
+
+      const data = await fetchGames() 
+      setGames(data) 
+    } catch (error) { 
+      console.error(error) 
+      toast.error("Error al cargar los juegos") 
+    }
+    finally {
+      setLoading(false)
+    }  
+  } 
+
+  const cargarGeneros = async () => { 
+    try { 
+      const data = await fetchGenres() 
+      setGenres(data || [])
+    } catch (error) { 
+      console.error("Error al cargar géneros:", error) 
+      toast.error("Error al cargar los géneros")
+      setGenres([])
+    } 
+  }
+
+  // Limpiar campos de edición
+  const limpiarCampos = () => {
+    setGameToEdit(null)
+  }
+
+  // Handlers para crear, editar y eliminar juegos
+  const handleCrear = async (nuevoJuego) => {
+    try {
+      await postGame(nuevoJuego)
+      
+      toast.success("Juego agregado correctamente")
+      setNeedsRefresh(true)
+
+      setShowCrearModal(false) // Cerramos el modal
+      
     } catch (error) {
       console.error(error)
-      toast.error("Error al cargar los juegos")
+      toast.error("Error al crear el juego")
     }
   }
 
-  const limpiarCampos = () => {   //Resetea los inputs y vuelve editMode/editId a su estado inicial.
-    setTitle("")
-    setDescription("")
-    setGenre("")
-    setPrice("")
-    setEditMode(false)
-    setEditId(null)
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    if (!title || !description || !genre || !price) {  //Validacion de campos completos
-      toast.warn("Todos los campos son obligatorios")
-      return
-    }
-
-    const nuevoJuego = { title, description, genre, price: parseFloat(price) }
-
+  const handleEditar = async (id, juegoActualizado) => {
     try {
-      if (editMode) {
-        await api.put(`/games/${editId}`, nuevoJuego)
-        toast.success("Juego actualizado correctamente")
-      } else {
-        await api.post("/games", nuevoJuego)
-        toast.success("Juego agregado correctamente")
-      }
-
-      limpiarCampos()  //Resetea el formulario
-      cargarJuegos()  //Recarga la lista para mostrar cambios en la tabla
-
-      const modal = window.bootstrap.Modal.getInstance(
-        document.getElementById("modalGame")
-      )
-      modal.hide()
+      await updateGame(id, juegoActualizado)
+      
+      toast.success("Juego actualizado correctamente")
+      // Refrescar pagina = true
+      setNeedsRefresh(true)
+      setShowEditarModal(false) // Cerrar modal
+      limpiarCampos() 
+      
     } catch (error) {
       console.error(error)
-      toast.error("Error al guardar el juego")
+      toast.error("Error al actualizar el juego")
     }
   }
 
+  // Funcion para eliminar un juego
   const eliminarJuego = async (id) => {
     if (window.confirm("¿Seguro que deseas eliminar este juego?")) {
+      setLoading(true)
       try {
-        await api.delete(`/games/${id}`)
+        await deleteGame(id)
         toast.success("Juego eliminado correctamente")
+        // Volver a cargar datos de juegos cuando se elimina uno
         cargarJuegos()
       } catch (error) {
         console.error(error)
         toast.error("Error al eliminar el juego")
+        setLoading(false)
       }
     }
   }
 
+  // Funcion para preparar la edición de un juego
   const editarJuego = (game) => {
-    setTitle(game.title)
-    setDescription(game.description)
-    setGenre(game.genre)
-    setPrice(game.price)
-    setEditMode(true)
-    setEditId(game.id)
-
-    const modal = new window.bootstrap.Modal(document.getElementById("modalGame"))
-    modal.show()
+    setGameToEdit(game)
   }
 
-  return (
+return (
     <div className="container mt-4 shadow-lg p-3 mb-5 bg-body rounded">
-      {/* Toastify container */}
-      <ToastContainer position="bottom-right" autoClose={2000} />
-
+      {/* Botón para crear juego */}
       <button
         id="btnCrear"
         type="button"
         className="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#modalGame"
-        onClick={limpiarCampos}
+        onClick={() => setShowCrearModal(true)}
       >
         Agregar Juego
       </button>
 
-      <table className="table mt-3 table-bordered table-striped">
-        <thead style={{ backgroundColor: "#0a4f70", color: "white" }}>
-          <tr className="text-center">
-            <th>ID</th>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Género</th>
-            <th>Precio</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {games.length === 0 ? (
-            <tr>
-              <td colSpan="6" className="text-center">
-                No hay juegos registrados
-              </td>
+      {Loading ? (
+        // Spinner de carga
+        <div className="d-flex flex-column justify-content-center align-items-center" style={{ height: "300px" }}>
+          <div className="spinner-border text-primary" style={{width: '3rem', height: '3rem'}} role="status">
+          </div>
+          <p className="mt-2 text-black">Cargando Juegos...</p>
+        </div>
+      ) : (
+        // Tabla con datos de juegos
+        <table className="table mt-3 table-bordered table-striped">
+          <thead style={{ backgroundColor: "#0a4f70", color: "white" }}>
+            <tr className="text-center">
+              <th>ID</th>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th>Género</th>
+              <th>Precio</th>
+              <th>Acciones</th>
             </tr>
-          ) : (
-            games.map((game) => (
-              <tr key={game.id} className="text-center align-middle">
-                <td>{game.id}</td>
-                <td>{game.title}</td>
-                <td>{game.description}</td>
-                <td>{game.genre}</td>
-                <td>${game.price}</td>
-                <td>
-                  <button
-                    className="btn btn-warning btn-sm me-2"
-                    onClick={() => editarJuego(game)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => eliminarJuego(game.id)}
-                  >
-                    Eliminar
-                  </button>
+          </thead>
+          <tbody>
+            {/* Verificar que haya juegos */}
+            {games.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="text-center">
+                  No hay juegos registrados
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              // Mapear y mostrar datos de cada juego
+              games.map((game) => (
+                <tr key={game.id} className="text-center align-middle">
+                  <td>{game.id}</td>
+                  <td>{game.name}</td>
+                  <td>{game.description}</td>
+                  <td>
+                    {/* Mostrar géneros separados por comas */}
+                    {game.genres && game.genres.length > 0
+                      ? game.genres.map((g) => g.genre.name).join(", ")
+                      : "—"}
+                  </td>
+                  <td>{game.is_free ? "Gratis" : `$${game.price}`}</td>
+                  <td>
+                    {/* Botones de editar y eliminar */}
+                    <button
+                      className="btn btn-warning btn-sm me-2"
+                      onClick={() => {
+                        editarJuego(game)
+                        setShowEditarModal(true)
+                      }}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => eliminarJuego(game.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      )}
+      
+      {/* Modales para crear y editar juegos */}
+      <ModalCrear
+        show={showCrearModal}
+        onHide={() => setShowCrearModal(false)}
+        genres={genres}
+        onGameCreated={handleCrear}
+      />
 
-      {/* Modal */}
-      <div
-        className="modal fade"
-        id="modalGame"
-        tabIndex="-1"
-        aria-labelledby="modalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header bg-primary text-white">
-              <h1 className="modal-title fs-5" id="modalLabel">
-                {editMode ? "Editar Juego" : "Nuevo Juego"}
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-
-            <form onSubmit={handleSubmit}>
-              <div className="modal-body">
-                <div className="mb-3">
-                  <label htmlFor="title" className="col-form-label">
-                    Título:
-                  </label>
-                  <input
-                    id="title"
-                    type="text"
-                    className="form-control"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="description" className="col-form-label">
-                    Descripción:
-                  </label>
-                  <textarea
-                    id="description"
-                    className="form-control"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  ></textarea>
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="genre" className="col-form-label">
-                    Género:
-                  </label>
-                  <input
-                    id="genre"
-                    type="text"
-                    className="form-control"
-                    value={genre}
-                    onChange={(e) => setGenre(e.target.value)}
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="price" className="col-form-label">
-                    Precio:
-                  </label>
-                  <input
-                    id="price"
-                    type="number"
-                    className="form-control"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Cerrar
-                </button>
-                <button type="submit" className="btn btn-primary">
-                  Guardar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <ModalEditar
+        show={showEditarModal}
+        onHide={() => {
+          setShowEditarModal(false)
+          limpiarCampos()
+        }}
+        genres={genres}
+        currentGame={gameToEdit}
+        onGameUpdated={handleEditar}
+      />
     </div>
   )
 }

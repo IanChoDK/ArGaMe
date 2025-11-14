@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../context/AuthContext"
 import { useNavigate, Link } from "react-router-dom"
+import { fetchRoles } from "../api/api"
 
 function Register() {
     const { register, loading, error } = useAuth()
+    const [roles, setRoles] = useState([])
     const navigate = useNavigate()
     const [form, setForm] = useState({
         name: "",
@@ -12,6 +14,14 @@ function Register() {
         password: "",
         role_id: 2,
     })
+
+    useEffect(() => {
+        const getRoles = async () => {
+            const rolesData = await fetchRoles()
+            setRoles(rolesData)
+        }
+        getRoles()
+    }, [])
 
     const handleChange = (e) =>
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -86,9 +96,11 @@ function Register() {
                 value={form.role_id}
                 onChange={handleChange}
                 >
-                <option value={1}>Admin</option>
-                <option value={2}>Usuario</option>
-                <option value={3}>Moderador</option>
+                    {roles?.map(role => (
+                        <option key={role.id} value={role.id}>
+                            {role.name}
+                        </option>
+                    ))}
                 </select>
             </div>
 
