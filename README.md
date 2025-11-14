@@ -8,7 +8,7 @@
 
 ## Backend (API Flask)
 
-Enlace al backend: **`https://github.com/mchena6/EFI_argame`{=html}**
+Enlace al backend: **`https://github.com/mchena6/EFI_argame`**
 
 ## Instalación y Ejecución
 
